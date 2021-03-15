@@ -6,12 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "task1": "nodemon ./Module1/Task1/Task1.js",
-    "task2": "nodemon ./Module1/Task2/Task2.js"
+    "task2": "node ./Module1/Task2/Task2.js",
+    "task3": "babel ./Module1/Task3/Task3.js -d dist && node ./dist/Task3.js"
   },
   "author": "Harsha Peddula",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
     "csvtojson": "^2.0.10",
     "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.13.10"
   }
 }

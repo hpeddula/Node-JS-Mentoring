@@ -4,12 +4,12 @@ import { createInterface } from 'readline';
 import { writeFile, createReadStream, appendFile } from 'fs';
 import { join } from 'path';
 import { EOL } from 'os';
+import { csvPath,jsonFile,txtFile } from './pathconstants';
 
 
-
-const csvPath = '../Module1/nodejs-hw1-ex1.csv';
-const jsonFile = './Output.json';
-const txtFile = './nodejs-hw1-ex2.txt';
+// const csvPath = '../Module1/nodejs-hw1-ex1.csv';
+// const jsonFile = './Output.json';
+// const txtFile = './nodejs-hw1-ex2.txt';
 const csvFilePath = join(__dirname,csvPath);
 
 

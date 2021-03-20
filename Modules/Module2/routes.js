@@ -1,6 +1,6 @@
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
-const validatior = require('./utils');
+const validator = require('./utils');
 
 // create a JSON data array
 let userData = [
@@ -31,7 +31,7 @@ router.get('/getUserById/:id', (req, res) => {
 
 router.post('/createUser', (req, res) => {
 
-    const { isValid, message } = validatior(req.body)
+    const { isValid, message } = validator(req.body)
     let newItem = {
         id: uuidv4(),
         login: req.body.login,
@@ -72,7 +72,7 @@ router.get('/getAutoSuggestUsers', (req, res) => {
     res.status(201).json(userData);
 })
 router.put('/updateUser/:id', (req, res) => {
-    const { isValid, message } = validatior(req.body)
+    const { isValid, message } = validator(req.body)
     if (isValid) {
         let found = userData.find(item => (
             item.id === req.params.id

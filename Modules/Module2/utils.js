@@ -4,7 +4,7 @@ const userSchema = Joi.object().keys({
   password: Joi.string().alphanum().required(),
   age: Joi.number().min(4).max(30).required()
 })
-const validatior = (req) => {
+const validator = (req) => {
   const { error } = userSchema.validate(req);
   const valid = error == null;
 
@@ -23,4 +23,4 @@ const validatior = (req) => {
     }
   }
 }
-module.exports = validatior;
+module.exports = validator;

@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "task1": "node ./Module1/Task1/Task1.js",
     "task2": "node ./Module1/Task2/Task2.js",
-    "task3": "babel ./Module1/Task3/*.js  -d dist && node ./dist/Task3.js"
+    "task3": "babel ./Module1/Task3/*.js  -d dist && node ./dist/Task3.js",
+    "module2task1": "nodemon ./Module2/server.js"
   },
   "author": "Harsha Peddula",
   "license": "ISC",
@@ -17,7 +18,11 @@
     "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "csvtojson": "^2.0.10",
-    "nodemon": "^2.0.7"
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "joi": "^17.4.0",
+    "nodemon": "^2.0.7",
+    "uuid": "^8.3.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10"

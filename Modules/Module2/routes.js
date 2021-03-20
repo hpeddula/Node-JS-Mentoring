@@ -1,13 +1,14 @@
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
+const validatior = require('./utils');
 
 // create a JSON data array
 let userData = [
-    { id: uuidv4(), login: 'Create a project', password: 1, isDeleted: false, age: 25 },
-    { id: uuidv4(), login: 'Take a cofféé', password: 2, isDeleted: false, age: 25 },
-    { id: uuidv4(), login: 'Write new article', password: 3, isDeleted: false, age: 25 },
-    { id: uuidv4(), login: 'Walk toward home', password: 4, isDeleted: false, age: 25 },
-    { id: uuidv4(), login: 'Have some dinner', password: 5, isDeleted: false, age: 25 },
+    { id: uuidv4(), login: 'Create a project', password: 'password1', isDeleted: false, age: 25 },
+    { id: uuidv4(), login: 'Take a cofféé', password: 'password2', isDeleted: false, age: 25 },
+    { id: uuidv4(), login: 'Write new article', password: 'password3', isDeleted: false, age: 25 },
+    { id: uuidv4(), login: 'Walk toward home', password: 'password4', isDeleted: false, age: 25 },
+    { id: uuidv4(), login: 'Have some dinner', password: 'password5', isDeleted: false, age: 25 },
 ];
 
 const router = express.Router();
@@ -29,6 +30,30 @@ router.get('/getUserById/:id', (req, res) => {
 })
 
 router.post('/createUser', (req, res) => {
+
+    const { isValid, message } = validatior(req.body)
+    let newItem = {
+        id: uuidv4(),
+        login: req.body.login,
+        password: req.body.password,
+        isDeleted: false,
+        age: req.body.age
+    };
+    if (isValid) {
+        // push new item object to data array of items
+        userData.push(newItem);
+
+        // return with status 201
+        // 201 means Created. The request has been fulfilled and 
+        // has resulted in one or more new resources being created. 
+        res.status(201).json(userData);
+    } else {
+        res.status(400).json(message)
+    }
+})
+
+
+router.get('/getAutoSuggestUsers', (req, res) => {
     console.log(req.body)
     let newItem = {
         id: uuidv4(),
@@ -46,35 +71,38 @@ router.post('/createUser', (req, res) => {
     // has resulted in one or more new resources being created. 
     res.status(201).json(userData);
 })
-
 router.put('/updateUser/:id', (req, res) => {
+    const { isValid, message } = validatior(req.body)
+    if (isValid) {
+        let found = userData.find(item => (
+            item.id === req.params.id
+        ));
+        console.log('Found', found)
+        // check if item found
+        if (found) {
+            let updated = {
+                id: found.id,
+                login: req.body.login,
+                password: req.body.password,
+                age: req.body.age,
+                isDeleted: false
+            };
 
-    let found = userData.find(item => (
-        item.id === req.params.id
-    ));
-    console.log('Found', found)
-    // check if item found
-    if (found) {
-        let updated = {
-            id: found.id,
-            login: req.body.login,
-            password: req.body.password,
-            age: req.body.age,
-            isDeleted: false
-        };
+            // find index of found object from array of data
+            let targetIndex = userData.indexOf(found);
 
-        // find index of found object from array of data
-        let targetIndex = userData.indexOf(found);
+            // replace object from data list with `updated` object
+            userData.splice(targetIndex, 1, updated);
 
-        // replace object from data list with `updated` object
-        userData.splice(targetIndex, 1, updated);
-
-        // return with status 204
-        // success status response code 204 indicates
-        // that the request has succeeded
-        res.sendStatus(204);
+            // return with status 204
+            // success status response code 204 indicates
+            // that the request has succeeded
+            res.sendStatus(204);
+        } else {
+            res.sendStatus(404);
+        }
     } else {
-        res.sendStatus(404);
+        res.status(400).json(message)
     }
 })
 
@@ -91,7 +119,7 @@ router.delete('/deleteUser/:id', (req, res) => {
         found['isDeleted'] = true;
 
         // splice means delete item from `data` array using index
-        userData[targetIndex] = {...found};
+        userData[targetIndex] = { ...found };
     }
 
     // return with status 204

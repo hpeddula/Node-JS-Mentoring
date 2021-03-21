@@ -54,22 +54,10 @@ router.post('/createUser', (req, res) => {
 
 
 router.get('/getAutoSuggestUsers', (req, res) => {
-    console.log(req.body)
-    let newItem = {
-        id: uuidv4(),
-        login: req.body.login,
-        password: req.body.password,
-        isDeleted: false,
-        age: req.body.age
-    };
-
-    // push new item object to data array of items
-    userData.push(newItem);
-
-    // return with status 201
-    // 201 means Created. The request has been fulfilled and 
-    // has resulted in one or more new resources being created. 
-    res.status(201).json(userData);
+    const { login,limit } = req.query;
+    const result = userData.sort((a,b)=>(a.login > b.login) ? 1 : ((b.login > a.login) ? -1 : 0)).filter(user => user.login.replace(/ /g,'').toLowerCase() === login.replace(/ /g,'').toLowerCase());
+    res.status(200).json(result.slice(0,limit))
+   
 })
 router.put('/updateUser/:id', (req, res) => {
     const { isValid, message } = validator(req.body)

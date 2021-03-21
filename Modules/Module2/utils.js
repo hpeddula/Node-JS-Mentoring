@@ -2,7 +2,7 @@ const Joi = require('joi')
 const userSchema = Joi.object().keys({
   login: Joi.string().required(),
   password: Joi.string().alphanum().required(),
-  age: Joi.number().min(4).max(30).required()
+  age: Joi.number().min(4).max(130).required()
 })
 const validator = (req) => {
   const { error } = userSchema.validate(req);
@@ -10,7 +10,7 @@ const validator = (req) => {
 
   if (valid) {
     return {
-      isValid : true,
+      isValid : valid,
       message : ''
     }
   } else {
@@ -18,7 +18,7 @@ const validator = (req) => {
     const message = details.map(i => i.message).join(',');
     console.log("error",message);
     return {
-      isValid : false,
+      isValid : valid,
       message
     }
   }

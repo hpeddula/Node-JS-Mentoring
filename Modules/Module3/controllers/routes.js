@@ -54,7 +54,7 @@ router.post('/createUser', async(req, res) => {
 })
 
 
-router.get('/getAutoSuggestUsers', (req, res) => {
+router.get('/getAutoSuggestUsers', async(req, res) => {
     const { login,limit } = req.query;
     const result = await getAutoSuggestUsers(login)
     res.status(200).json(result.slice(0,limit))

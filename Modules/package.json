@@ -8,7 +8,8 @@
     "task1": "node ./Module1/Task1/Task1.js",
     "task2": "node ./Module1/Task2/Task2.js",
     "task3": "babel ./Module1/Task3/*.js  -d dist && node ./dist/Task3.js",
-    "module2task1": "nodemon ./Module2/server.js"
+    "module2task1": "nodemon ./Module2/server.js",
+    "module3":"nodemon ./Module3/server.js"
   },
   "author": "Harsha Peddula",
   "license": "ISC",
@@ -25,6 +26,10 @@
     "uuid": "^8.3.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.13.10"
+    "@babel/runtime": "^7.13.10",
+    "dotenv": "^8.2.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2"
   }
 }

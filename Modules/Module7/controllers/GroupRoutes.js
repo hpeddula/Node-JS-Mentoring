@@ -12,7 +12,7 @@ router.use((req,res,next)=>{
 })
 
 router.get('/', authenTicateJWT,async(req, res) => {
-    console.log(req)
+    console.log('Inside Get All Groups')
     try{
     const groups = await getAllGroups();
     return  res.status(200).json(groups)

@@ -2,7 +2,6 @@ const { decodeJwt } = require('../services/JwtService');
 
 module.exports = async(req,res,next) => {
     try {
-        console.log(req.headers)
         if(req.headers.hasOwnProperty('authorization')) {
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = await decodeJwt(token);
